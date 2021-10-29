@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+
+
+  <!-- Police Lato et Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap" rel="stylesheet">
+
+
+  <!-- lien pour l'insertion des icones -->
+  <script src="https://kit.fontawesome.com/4547d44caf.js" crossorigin="anonymous"></script>
+
+  <title>Les petits plats</title>
+
+</head>
+
+<body>
+  <header class="recherche">
+    <img class="logo" src="Union.png" alt="logo">
+    <input class="chercher" type="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
+      id="search">
+
+  </header>
+
+  <section class="filtres">
+
+    <div class="dropdown">
+      <div>
+        <button onclick="myFunction(event, 'dropdowningredient')" class="dropbtn collapsible">Ingredient</button>
+        <div id="dropdowningredient" class="dropdown-content">
+          <input type="text" placeholder="Recherche un ingrédient" id="myInput" onkeyup="filterFunction(event)">
+          <a href="#about">About</a>
+          <a href="#base">Base</a>
+          <a href="#blog">Blog</a>
+        </div>
+      </div>
+
+      <div>
+        <button onclick="myFunction(event,'dropdownAppliance')" class="dropbtn collapsible">Appareil v</button>
+        <div id="dropdownAppliance" class="dropdown-content">
+          <input type="search" placeholder="Recherche un appareil" id="appliance" onkeyup="filterFunction(event)">
+          <a href="#about">About</a>
+          <a href="#base">Base</a>
+          <a href="#blog">Blog</a>
+        </div>
+      </div>
+
+      <div>
+        <button onclick="myFunction(event, 'dropdownUstensil')" class="dropbtn collapsible">Ustensiles v</button>
+        <div id="dropdownUstensil" class="dropdown-content">
+          <input type="search" placeholder="Recherche un ustensile" id="ustensil" onkeyup="filterFunction(event)">
+          <a id="recipesName" href="#about">About</a>
+          <a href="#base">Base</a>
+          <a href="#blog">Blog</a>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="plats" id="recipesContainer">
+  </section>
+
+
+  <script src="recipes.js"></script>
+</body>
+
+</html>
