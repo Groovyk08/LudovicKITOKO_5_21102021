@@ -5,20 +5,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Boostrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
-
-
   <!-- Police Lato et Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap" rel="stylesheet">
-
-
   <!-- lien pour l'insertion des icones -->
   <script src="https://kit.fontawesome.com/4547d44caf.js" crossorigin="anonymous"></script>
-
   <title>Les petits plats</title>
-
 </head>
 
 <body>
@@ -33,30 +30,36 @@
 
     <div class="dropdown">
       <div>
-        <button onclick="myFunction(event, 'dropdowningredient')" class="dropbtn collapsible">Ingredient</button>
-        <div id="dropdowningredient" class="dropdown-content">
-          <input type="text" placeholder="Recherche un ingrédient" id="myInput" onkeyup="filterFunction(event)">
-          <a href="#about">About</a>
+        <button onclick="displayDropdown(event, 'dropdownIngredient')"
+          class="dropbtnIngredient collapsible">Ingredient</button>
+        <div id="dropdownIngredient" class="dropdown-content">
+          <input class="inputIngredient" type="search" placeholder="Recherche un ingrédient" id="ingredientFilter"
+            onkeyup="filterFunction(event, 'ingredientFilter')">
+          <a id="ingredientName" href="#about">About</a>
           <a href="#base">Base</a>
           <a href="#blog">Blog</a>
         </div>
       </div>
 
       <div>
-        <button onclick="myFunction(event,'dropdownAppliance')" class="dropbtn collapsible">Appareil v</button>
+        <button onclick="displayDropdown(event,'dropdownAppliance')"
+          class="dropbtnAppliance collapsible">Appareil</button>
         <div id="dropdownAppliance" class="dropdown-content">
-          <input type="search" placeholder="Recherche un appareil" id="appliance" onkeyup="filterFunction(event)">
-          <a href="#about">About</a>
+          <input class="inputAppliance" type="search" placeholder="Recherche un appareil" id="applianceFilter"
+            onkeyup="filterFunction(event, 'applianceFilter')">
+          <a id="applianceName" href="#about">About</a>
           <a href="#base">Base</a>
           <a href="#blog">Blog</a>
         </div>
       </div>
 
       <div>
-        <button onclick="myFunction(event, 'dropdownUstensil')" class="dropbtn collapsible">Ustensiles v</button>
+        <button onclick="displayDropdown(event, 'dropdownUstensil')"
+          class="dropbtnUstensil collapsible">Ustensils</button>
         <div id="dropdownUstensil" class="dropdown-content">
-          <input type="search" placeholder="Recherche un ustensile" id="ustensil" onkeyup="filterFunction(event)">
-          <a id="recipesName" href="#about">About</a>
+          <input class="inputUstensil" type="search" placeholder="Recherche un ustensil" id="ustensilFitler"
+            onclick="filterFunction(event, 'ustensilFitler')">
+          <a id="ustensilName" href="#about">About</a>
           <a href="#base">Base</a>
           <a href="#blog">Blog</a>
         </div>
@@ -69,8 +72,17 @@
   <section class="plats" id="recipesContainer">
   </section>
 
-
-  <script src="recipes.js"></script>
+  <!-- Bootsrap JS
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script> -->
+  <script src="./recipes.js"></script>
 </body>
 
 </html>

@@ -1724,32 +1724,125 @@ const recipes = [
     "ustensils": ["rouleau à patisserie", "fouet"]
   }
 ]
-showRecipes(recipes)
+
+// Classe pour récupérer les informations du tableau des recettes 
+class Recipe {
+  constructor(name, time, description) {
+    this.name = name
+    this.time = time
+    this.description = description
+    this.ingredients = []
+    this.appliances = []
+    this.ustensils = []
+  }
+
+  // Méthode d'ajout d'un ingrédient au tableau ingrédient
+  addIngredient(ingredient) {
+    this.ingredients.push(ingredient)
+  }
+
+  // Ajout d'un plat au tableau appliance
+  addAppliance(appliance) {
+    this.appliances.push(appliance)
+  }
+
+  // Ajout d'un ustensil au tableau ustensil
+  addUstensil(ustensil) {
+    this.ustensils.push(ustensil)
+  }
+
+}
+
+// Classe pour récupérer les informations d'un ingrédient dans le tableau recipes du fichier recipes.js
+class Ingredient {
+  constructor(name, quantity, unit = "") {
+    this.name = name
+    this.quantity = quantity
+    this.unit = unit
+  }
+}
+
+// Classe pour récupérer les informations d'un ustensil dans le tableau recipes du fichier recipes.js
+class Ustensil {
+  constructor(name) {
+    this.name = name
+  }
+}
+
+// Classe pour récupérer les informations d'un plat dans le tableau recipes du fichier recipes.js
+class Appliance {
+  constructor(name) {
+    this.name = name
+  }
+}
+
+
+// Création d'une recette 
+function createRecipeObject() {
+
+  // Stockage de toutes les recettes dans un tableau 
+  let allRecipesArray = []
+
+  // Fonction qui boucle sur l'ensemble des recettes du fichier recipes.js
+  recipes.forEach(function (oneRecipe) {
+
+    // Instance de la recette 
+    let oneNewRecipeObject = new Recipe(oneRecipe.name, oneRecipe.time, oneRecipe.description)
+
+    // Ajout des ingrédients à la recette 
+    oneRecipe.ingredients.forEach(function (oneIngredient) {
+      let oneIngredientObject = new Ingredient(oneIngredient.ingredient, oneIngredient.quantity, oneIngredient.unit)
+      oneNewRecipeObject.addIngredient(oneIngredientObject)
+    })
+
+    // Ajout des ustensils à la recette
+    oneRecipe.ustensils.forEach(function (oneUstensil) {
+      let oneUstensilObject = new Ustensil(oneUstensil)
+      oneNewRecipeObject.addUstensil(oneUstensilObject)
+
+    })
+
+    // Ajout du plat à la recette 
+    let oneApplianceObject = new Appliance(oneRecipe.appliance)
+    oneNewRecipeObject.addAppliance(oneApplianceObject)
+
+    // Stockage de la recette complète dans la variable allRecipesArray
+    allRecipesArray.push(oneNewRecipeObject)
+
+  })
+
+  return allRecipesArray
+}
+
+// Appelle de la fonction qui créer mes recettes via une variable 
+let recipesObject = createRecipeObject()
+console.log(recipesObject) 
+
 
 // ID de l'input de la barre de recherche HTML
 const search = document.getElementById("search")
 // ID pour la recherche par appareil
-const appliance = document.getElementById("appliance")
+const applian = document.getElementById("appliance")
 // ID pour la recherche par ingrédient
-const ingredient = document.getElementById("ingredient")
+const ingr = document.getElementById("ingredient")
 // ID pour la recherche par ustensil 
 const ustensil = document.getElementById("ustensil")
 // ID pour afficher le résultat des recherches 
 const result = document.getElementById("result")
 
-
-
-
-// Appararition du contenu caché du dropdown au clic sur le bouton
-function myFunction(event,dropdownID) {
-  document.getElementById(dropdownID).classList.toggle("show");
+// Affichage du contenu caché du dropdown au clic sur le bouton
+function displayDropdown(event, dropdownIngredient, dropdownAppliance, dropdownUstensil) {
+  document.getElementById("dropdownIngredient").classList.toggle("showIngredient");
+  document.getElementById("dropdownAppliance").classList.toggle("showAppliance");
+  document.getElementById("dropdownUstensil").classList.toggle("showUstensil");
 }
 
-function filterFunction() {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById("myInput");
+//Filtre des dropdowns
+function filterFunction(event, ingredientFilter, applianceFilter, ustensilFilter) {
+  let input, filter, ul, li, a, i;
+  input = document.getElementById("ingredientFilter");
   filter = input.value.toUpperCase();
-  div = document.getElementById("myDropdown");
+  div = document.getElementById("dropdownIngredient");
   a = div.getElementsByTagName("a");
   for (i = 0; i < a.length; i++) {
     txtValue = a[i].textContent || a[i].innerText;
@@ -1761,10 +1854,14 @@ function filterFunction() {
   }
 }
 
+
+// Affichage des cartes recettes
 function showRecipes(recipesArray) {
   const container = document.getElementById("recipesContainer")
   console.log(container.innerHTML)
   container.innerHTML = ""
+
+  // Boucle pour afficher toutes les cartes recettes dans la section recipesContainer
   recipesArray.forEach(element => {
     const recipesCard = `<article class="recettes">
 
@@ -1772,30 +1869,45 @@ function showRecipes(recipesArray) {
     <div class="textrecette">
       <h2 class="titrerecette">
         ${element.name}
-        <figcaption class="time">
-          <i class="far fa-clock"></i>
-          ${element.time}
-        </figcaption>
       </h2>
+      <figcaption class="time">
+      <i class="far fa-clock"></i>
+      ${element.time}min
+      </figcaption>
     </div>
     
     <div class="description">
       <ul class="ingrédients">
-        <li> Lait de coco: 400ml</li>
-        <li>Jus de citron: 2</li>
-        <li>Crème de coco: 4 cuillières</li>
-        <li>Sucre 20g</li>
-        <li>Glaçons: 2</li>
+        ${showRecipeIngredients(element.ingredients)}
       </ul>
     
       <blockquote class="resume">
-        Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et
-        le sucre. Mixer jusqu'à avoir la consistence désirée.
-    
+        ${element.description}
       </blockquote>
     </div>
     </article>`
-    container.innerHTML+=recipesCard
+    container.innerHTML += recipesCard
   });
 
 }
+
+showRecipes(recipes)
+
+// Affichage du texte des ingredients pour les cartes 
+function showRecipeIngredients(ingredients) {
+  let res = ""
+  ingredients.forEach(i => {
+    res += `<li>${i.ingredient} ${i.quantity ? ": " + i.quantity : ""} ${i.unit ? i.unit : ""} </li>`
+  })
+  return res
+}
+
+
+// Affichage des quantités des ingrédients pour les cartes
+/*function showRecipeQuantity(quantity) {
+  let quant = ""
+  quantity.forEach(q => {
+    quant += `<li>${q.quantity} <li>`
+  })
+  return quant
+} */

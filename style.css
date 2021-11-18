@@ -32,6 +32,7 @@ body {
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   border: 0;
   border-radius: 5px;
+  outline-offset: 0;
 }
 
 .filtres {
@@ -40,8 +41,32 @@ body {
 
 /* Boutons dropdown */
 
-.dropbtn {
+.dropbtnIngredient {
   background-color: #3282F7;
+  color: #fff;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 170px;
+  height: 69px;
+}
+
+.dropbtnAppliance {
+  background-color: #68D9A4;
+  color: #fff;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 170px;
+  height: 69px;
+}
+
+.dropbtnUstensil {
+  background-color: #ED6454;
   color: #fff;
   padding: 16px;
   font-size: 16px;
@@ -64,26 +89,6 @@ button.collapsible:after {
   margin-left: 5px;
 }
 
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #3282F7;
-}
-
-#MyInput {
-  box-sizing: border-box;
-  background-image: url('searchicon.png');
-  background-position: 14px 12px;
-  background-repeat: no-repeat;
-  font-size: 16px;
-  padding: 14px 20px 12px 45px;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  background-color: #3282F7;
-  color: #FFFFFF;
-}
-
-#MyInput:focus {
-  outline: 3px solid #ddd;
-}
 
 .dropdown {
   position: relative;
@@ -116,11 +121,56 @@ button.collapsible:after {
   background-color: #ddd;
 }
 
-
-.show {
+/* Div contenant les tableaux Ingredients, Appliance et Ustensil filtrés */
+.showIngredient {
   display: block;
   background-color: #3282F7;
   border-radius: 5px;
+}
+
+.showAppliance {
+  display: block;
+  background-color: #68D9A4;
+  border-radius: 5px;
+}
+
+.showUstensil {
+  display: block;
+  background-color: #ED6454;
+  border-radius: 5px;
+}
+
+.inputIngredient {
+  height: 30px;
+  width: 20px;
+  left: 53px;
+  top: 25px;
+  background-color: #3282F7;
+  color: white;
+  width: 100%;
+  border: none;
+}
+
+.inputAppliance {
+  height: 30px;
+  width: 20px;
+  left: 53px;
+  top: 25px;
+  background-color: #68D9A4;
+  color: white;
+  width: 100%;
+  border: none;
+}
+
+.inputUstensil {
+  height: 30px;
+  width: 20px;
+  left: 53px;
+  top: 25px;
+  background-color: #ED6454;
+  color: white;
+  width: 100%;
+  border: none;
 }
 
 /* Section des plats */
@@ -139,31 +189,36 @@ button.collapsible:after {
 .recettes {
   display: flex;
   background-color: #E7E7E7;
-  width: 30%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
   margin: 10px;
-  border-radius: 8px;
+  height: 380px;
+  width: 380px;
+  left: 0px;
+  top: 0px;
+  border-radius: 5px;
 }
 
 .imgrecettes {
-  width: 100%;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  height: 165px;
   object-fit: fill;
   background-color: #C7BEBE;
+  height: inherit;
+  width: 380px;
+  left: 0px;
+  top: 0px;
 }
 
 .textrecette {
   display: flex;
   width: 100%;
-  flex-direction: column;
+  flex-direction: row;
   align-items: stretch;
-  justify-content: center;
-  align-content: center;
+  justify-content: space-between;
+  align-content: space-around;
 }
 
 .titrerecette {
@@ -177,6 +232,7 @@ button.collapsible:after {
   flex-direction: row;
   align-content: center;
   padding: 5px;
+  width: 70%;
 }
 
 .time {
@@ -196,7 +252,6 @@ button.collapsible:after {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
   list-style: none;
   align-items: flex-start;
   align-content: center;
@@ -204,19 +259,41 @@ button.collapsible:after {
   font-weight: bold;
   font-size: 12px;
   line-height: 14px;
-  width: 100%;
   padding: 5px;
+  height: 106px;
+  width: 171px;
+  left: 20px;
+  top: 243px;
 }
 
 .resume {
-  width: 50%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: pre-line;
   font-family: 'Roboto';
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
   line-height: 12px;
-  width: 100%;
+  height: 110px;
+  width: 171px;
+  left: 191px;
+  top: 243px;
   padding: 5px;
+}
+
+
+
+/*----------------- RESPONSIVE -------------------- */
+
+
+@media screen and (max-width: 800px) {
+
+  .dropdown {
+    flex-direction: column;
+  }
+  .plats {
+    flex-direction: column;
+  }
+  
 }
