@@ -122,20 +122,21 @@ button.collapsible:after {
 }
 
 /* Div contenant les tableaux Ingredients, Appliance et Ustensil filtrés */
-.showIngredient {
+
+.show {
   display: block;
+}
+.dropdownIngredient {
   background-color: #3282F7;
   border-radius: 5px;
 }
 
-.showAppliance {
-  display: block;
+.dropdownAppliance {
   background-color: #68D9A4;
   border-radius: 5px;
 }
 
-.showUstensil {
-  display: block;
+.dropdownUstensil {
   background-color: #ED6454;
   border-radius: 5px;
 }
