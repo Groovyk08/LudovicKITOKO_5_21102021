@@ -1986,15 +1986,45 @@ function AddFilter(filteredElement, typeOfElement) {
 displayFilters(allFilters)
 
 // Filtre des dropdowns
-function inputFilter(event) {
+function ingredientFiltered(event) {
   let input, filter, a, i;
   input = document.getElementById("ingredientFilter");
-  //input = document.getElementById("applianceFilter")
-  //input = document.getElementById("ustensilFilter")
   filter = input.value.toLowerCase();
   div = document.getElementById("dropdownIngredient");
-  //div = document.getElementById("dropdownAppliance")
-  //div = document.getElementById("dropdownUstensil")
+  a = div.getElementsByTagName("p");
+
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toLowerCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+
+function applianceFiltered(event) {
+  let input, filter, a, i;
+  input = document.getElementById("applianceFilter");
+  filter = input.value.toLowerCase();
+  div = document.getElementById("dropdownAppliance");
+  a = div.getElementsByTagName("p");
+
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toLowerCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+
+function ustensilFiltered(event) {
+  let input, filter, a, i;
+  input = document.getElementById("ustensilFilter");
+  filter = input.value.toLowerCase();
+  div = document.getElementById("dropdownUstensil");
   a = div.getElementsByTagName("p");
 
   for (i = 0; i < a.length; i++) {
@@ -2016,10 +2046,11 @@ function getValidRecipes() {
     }
   })
 }
-
 getValidRecipes()
 
 
+
+// Affiche un ingrédient filtré et sélectionné pour une recherche de recette
 function AddFilterBox(name, type) {
 
   let colors = [
@@ -2027,23 +2058,16 @@ function AddFilterBox(name, type) {
     "#68D9A4",
     "#ED645"
   ]
+
   let container = document.getElementById("activeFilters")
   let template = `<div class="buttonFilter" id="activeFilters">
   <button class="ingredientActive" id="${name}"> 
   ${name}
   <i class="far fa-times-circle"></i>
   </button>
-  <button class="applianceActive" id="applianceBox">
-   appareil
-    <i class="far fa-times-circle">
-    </i></button>
-  <button class="ustensilActive" id="ustensilBox">
-   ustensil 
-   <i class="far fa-times-circle">
-   </i> </button>
 </div> `
 
-  container.innerHTML(template)
+  container.innerHTML += template
 }
 
 // Affichage des cartes recettes

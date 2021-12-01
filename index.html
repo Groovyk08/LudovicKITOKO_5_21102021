@@ -40,7 +40,7 @@
           class="dropbtnIngredient collapsible">Ingredients</button>
         <div id="dropdownIngredient" class="dropdown-content dropdownIngredient">
           <input class="inputIngredient" type="search" placeholder="Recherche un ingrédient" id="ingredientFilter"
-            onkeyup="inputFilter(event, 'ingredientFilter')">
+            onkeyup="ingredientFiltered(event, 'ingredientFilter')">
           <p class="listingName" id="ingredientName"></p>
         </div>
       </div>
@@ -50,7 +50,7 @@
           class="dropbtnAppliance collapsible">Appareil</button>
         <div id="dropdownAppliance" class="dropdown-content dropdownAppliance">
           <input class="inputAppliance" type="search" placeholder="Recherche un appareil" id="applianceFilter"
-            onkeyup="inputFilter(event, 'applianceFilter')">
+            onkeyup="applianceFiltered(event, 'applianceFilter')">
           <p class="listingName" id="applianceName"></p>
         </div>
       </div>
@@ -59,8 +59,8 @@
         <button onclick="displayDropdown(event, 'dropdownUstensil')"
           class="dropbtnUstensil collapsible">Ustensils</button>
         <div id="dropdownUstensil" class="dropdown-content dropdownUstensil">
-          <input class="inputUstensil" type="search" placeholder="Recherche un ustensil" id="ustensilFitler"
-            onclick="inputFilter(event, 'ustensilFilter')">
+          <input class="inputUstensil" type="search" placeholder="Recherche un ustensil" id="ustensilFilter"
+            onclick="ustensilFiltered(event, 'ustensilFilter')">
           <p class="listingName" id="ustensilName"></p>
         </div>
       </div>
