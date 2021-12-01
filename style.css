@@ -39,11 +39,54 @@ body {
   padding: 15px;
 }
 
+/* Bouttons des filtres de recherche actifs */
+.buttonFilter {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+}
+
+.ingredientActive {
+  color: #FFFFFF;
+  background-color: #3282F7;
+  height: 37px;
+  width: 107px;
+  left: 100px;
+  top: 246px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.applianceActive {
+  color: #FFFFFF;
+  background-color: #68D9A4;
+  height: 37px;
+  width: 107px;
+  left: 100px;
+  top: 246px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.ustensilActive {
+  color: #FFFFFF;
+  background-color: #ED6454;
+  height: 37px;
+  width: 107px;
+  left: 100px;
+  top: 246px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
 /* Boutons dropdown */
 
 .dropbtnIngredient {
   background-color: #3282F7;
-  color: #fff;
+  color: #FFFFFF;
   padding: 16px;
   font-size: 16px;
   border: none;
@@ -55,7 +98,7 @@ body {
 
 .dropbtnAppliance {
   background-color: #68D9A4;
-  color: #fff;
+  color: #FFFFFF;
   padding: 16px;
   font-size: 16px;
   border: none;
@@ -67,7 +110,7 @@ body {
 
 .dropbtnUstensil {
   background-color: #ED6454;
-  color: #fff;
+  color: #FFFFFF;
   padding: 16px;
   font-size: 16px;
   border: none;
@@ -83,7 +126,7 @@ body {
 
 button.collapsible:after {
   content: '\002B';
-  color: white;
+  color: #FFFFFF;
   font-weight: bold;
   float: right;
   margin-left: 5px;
@@ -126,19 +169,23 @@ button.collapsible:after {
 .show {
   display: block;
 }
+
 .dropdownIngredient {
   background-color: #3282F7;
   border-radius: 5px;
+  overflow: overlay;
 }
 
 .dropdownAppliance {
   background-color: #68D9A4;
   border-radius: 5px;
+  overflow: overlay;
 }
 
 .dropdownUstensil {
   background-color: #ED6454;
   border-radius: 5px;
+  overflow: overlay;
 }
 
 .inputIngredient {
@@ -147,9 +194,10 @@ button.collapsible:after {
   left: 53px;
   top: 25px;
   background-color: #3282F7;
-  color: white;
+  color: #FFFFFF;
   width: 100%;
   border: none;
+  outline-offset: 0px;
 }
 
 .inputAppliance {
@@ -158,9 +206,10 @@ button.collapsible:after {
   left: 53px;
   top: 25px;
   background-color: #68D9A4;
-  color: white;
+  color: #FFFFFF;
   width: 100%;
   border: none;
+  outline-offset: 0px;
 }
 
 .inputUstensil {
@@ -172,6 +221,24 @@ button.collapsible:after {
   color: white;
   width: 100%;
   border: none;
+  outline-offset: 0px;
+}
+
+.listingName {
+  color: #FFFFFF;
+  height: 250px;
+  width: 650px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  overflow: visible;
+}
+
+.listingName:hover {
+  cursor: pointer;
+  text-decoration: none;
 }
 
 /* Section des plats */
@@ -293,8 +360,9 @@ button.collapsible:after {
   .dropdown {
     flex-direction: column;
   }
+
   .plats {
     flex-direction: column;
   }
-  
+
 }

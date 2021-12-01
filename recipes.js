@@ -1725,6 +1725,9 @@ const recipes = [
   }
 ]
 
+// Stockage de toutes les recettes dans un tableau
+let allRecipesArray = []
+
 // Classe pour récupérer les informations du tableau des recettes 
 class Recipe {
   constructor(name, time, description) {
@@ -1734,6 +1737,7 @@ class Recipe {
     this.ingredients = []
     this.appliances = []
     this.ustensils = []
+    this.hasFilters = 0
   }
 
   // Méthode d'ajout d'un ingrédient au tableau ingrédient
@@ -1776,7 +1780,6 @@ class Appliance {
   }
 }
 
-
 // Création d'une recette 
 function createRecipeObject() {
 
@@ -1818,10 +1821,8 @@ function createRecipeObject() {
 let recipesObject = createRecipeObject()
 console.log(recipesObject)
 
-
-
 // ID de l'input de la barre de recherche HTML
-const search = document.getElementById("search")
+const search = document.getElementById("searchRecipe")
 
 // ID pour afficher le résultat des recherches 
 const result = document.getElementById("result")
@@ -1844,38 +1845,38 @@ function displayDropdown(event, dropdown) {
   }
 }
 
+// Normaliser la chaîne de caractères
+function normalize(str) {
+  return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+}
 
 // Filtre des noms des ingrédients, plats et ustensils dans des tableaux
 function getFitlers(allRecipesArray) {
 
-  let allIngredientsFilters = []
-  let allAppliancesFilters = []
-  let allUstensilsFilters = []
+  let allIngredientsFilters = new Set()
+  let allAppliancesFilters = new Set()
+  let allUstensilsFilters = new Set()
 
   allRecipesArray.forEach(function (oneRecipe) {
 
     // Filtre les noms doublons 
     oneRecipe.ingredients.forEach(function (oneIngredient) {
-      if (allIngredientsFilters.includes(oneIngredient.name) === false) {
-        allIngredientsFilters.push(oneIngredient.name)
-      }
+      allIngredientsFilters.add(normalize(oneIngredient.name))
+
     })
 
     oneRecipe.appliances.forEach(function (oneAppliance) {
-      if (allAppliancesFilters.includes(oneAppliance.name) === false) {
-        allAppliancesFilters.push(oneAppliance.name)
-      }
+      allAppliancesFilters.add(normalize(oneAppliance.name))
     })
 
     oneRecipe.ustensils.forEach(function (oneUstensil) {
-      if (allUstensilsFilters.includes(oneUstensil.name) === false) {
-        allUstensilsFilters.push(oneUstensil.name)
-      }
+      allUstensilsFilters.add(normalize(oneUstensil.name))
     })
   })
 
   // Renvoi les données filtrées dans un tableau 
-  return [allIngredientsFilters, allAppliancesFilters, allUstensilsFilters]
+  console.log(allIngredientsFilters)
+  return [[...allIngredientsFilters], [...allAppliancesFilters], [...allUstensilsFilters]]
 }
 
 // Appelle de la fonction getFilters
@@ -1889,49 +1890,116 @@ function displayFilters(allFilters) {
   let applianceContainer = document.getElementById("applianceName")
   let ustensilContainer = document.getElementById("ustensilName")
 
+  // tri par ordre alphabétique 
+  allFilters[0].sort();
+
   // Boucle dans le dropdown ingrédient pour afficher un élément du filtre 
   allFilters[0].forEach(function (oneIngredient) {
-    let ingredientToAdd = `<a>${oneIngredient}</a>`
-    ingredientContainer.innerHTML += (ingredientToAdd)
-    allFilters[0].sort(); // tri par ordre alphabétique 
-    oneIngredient.normalize();
-    console.log("ingredientToAdd")
+    let ingredientToAdd = `<p>${oneIngredient}</p>`
+    ingredientContainer.innerHTML += ingredientToAdd
+
+    document.addEventListener("click", function () {
+      AddFilter(oneIngredient, allFilters[1])
+    })
   })
 
-  // Boucle dans le dropdown appliance pour afficher tous les éléments du filtre 
+  allFilters[1].sort();
+  // Boucle dans le dropdown appliance pour afficher tous les éléments du filtre
   allFilters[1].forEach(function (oneAppliance) {
-    let applianceToAdd = `<a>${oneAppliance}</a>`
-    applianceContainer.innerHTML += (applianceToAdd)
-    allFilters[1].sort();
-    oneAppliance.normalize();
-    console.log("applianceToAdd");
+    let applianceToAdd = `<p>${oneAppliance}</p>`
+    applianceContainer.innerHTML += applianceToAdd
+
+    document.addEventListener("click", function () {
+      AddFilter(oneAppliance, allFilters[1])
+    })
   })
 
+  allFilters[2].sort();
   // Boucle dans le dropdown ustensil pour afficher tous les éléments du filtre 
   allFilters[2].forEach(function (oneUstensil) {
-    let ustensilToAdd = `<a>${oneUstensil}</a>`
-    ustensilContainer.innerHTML += (ustensilToAdd)
-    allFilters[2].sort();
-    oneUstensil.normalize();
-    console.log("ustensilToAdd");
+    let ustensilToAdd = `<p>${oneUstensil}</p>`
+    ustensilContainer.innerHTML += ustensilToAdd
+
+    document.addEventListener("click", function () {
+      AddFilter(oneUstensil, allFilters[2])
+    })
   })
 
+}
+
+// Nombre de filtres actifs pendant une recherche
+let totalFiltersClicked = 0
+
+// Indique qu'on a cliqué sur un ingrédient
+function AddFilter(filteredElement, typeOfElement) {
+
+  totalFiltersClicked += 1
+  // totalFiltersClicked = totalFiltersClicked + 1 
+
+  let type = [
+    "ingredients",
+    "appliances",
+    "ustensils"
+  ]
+
+  AddFilterBox(filteredElement, typeOfElement)
+  console.log("Elément cliqué :", filteredElement, "et c'est un élément de type", type[typeOfElement])
+
+  // Boucle sur le tableau de recette pour vérifier qu'une recette contient l'élément cliqué 
+  allRecipesArray.forEach(function (oneRecipe) {
+
+    if (type[typeOfElement] === "ingredients") {
+      oneRecipe.ingredients.forEach(function (oneIngredient) {
+        if (filteredElement === oneIngredient.name) {
+          oneRecipe.hasFilters += 1
+          // oneRecipe.hasFilters = oneRecipe.hasFilters + 1
+          console.log("La recette", oneRecipe.name, "contient", oneIngredient.name)
+        }
+      })
+    }
+
+    if (type[typeOfElement] === "appliances") {
+      oneRecipe.appliances.forEach(function (oneAppliance) {
+        if (filteredElement === oneAppliance.name) {
+          oneRecipe.hasFilters += 1
+          // oneRecipe.hasFilters = oneRecipe.hasFilters + 1
+          console.log("La recette", oneRecipe.name, "contient", oneAppliance.name)
+        }
+      })
+    }
+
+    if (type[typeOfElement] === "ustensils") {
+      oneRecipe.ustensils.forEach(function (oneUstensil) {
+        if (filteredElement === oneUstensil.name) {
+          oneRecipe.hasFilters += 1
+          // oneRecipe.hasFilters = oneRecipe.hasFilters + 1
+          console.log("La recette", oneRecipe.name, "contient", oneUstensil.name)
+        }
+      })
+    }
+  })
+  console.log("Nombre de filtres actifs :", totalFiltersClicked)
+  getValidRecipes()
 }
 
 // Appelle de la fonction
 displayFilters(allFilters)
 
 // Filtre des dropdowns
-function filterFunction(event) {
+function inputFilter(event) {
   let input, filter, a, i;
   input = document.getElementById("ingredientFilter");
-  filter = input.value.toUpperCase();
+  //input = document.getElementById("applianceFilter")
+  //input = document.getElementById("ustensilFilter")
+  filter = input.value.toLowerCase();
   div = document.getElementById("dropdownIngredient");
-  a = div.getElementsByTagName("a");
+  //div = document.getElementById("dropdownAppliance")
+  //div = document.getElementById("dropdownUstensil")
+  a = div.getElementsByTagName("p");
 
   for (i = 0; i < a.length; i++) {
     txtValue = a[i].textContent || a[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+    if (txtValue.toLowerCase().indexOf(filter) > -1) {
       a[i].style.display = "";
     } else {
       a[i].style.display = "none";
@@ -1939,6 +2007,44 @@ function filterFunction(event) {
   }
 }
 
+
+// Indique les recettes valides en fonction du nombre de filtres actifs
+function getValidRecipes() {
+  allRecipesArray.forEach(function (oneRecipe) {
+    if (oneRecipe.hasFilters === totalFiltersClicked) {
+      console.log("Cette recette est valide :", oneRecipe.name)
+    }
+  })
+}
+
+getValidRecipes()
+
+
+function AddFilterBox(name, type) {
+
+  let colors = [
+    "#3282F7;",
+    "#68D9A4",
+    "#ED645"
+  ]
+  let container = document.getElementById("activeFilters")
+  let template = `<div class="buttonFilter" id="activeFilters">
+  <button class="ingredientActive" id="${name}"> 
+  ${name}
+  <i class="far fa-times-circle"></i>
+  </button>
+  <button class="applianceActive" id="applianceBox">
+   appareil
+    <i class="far fa-times-circle">
+    </i></button>
+  <button class="ustensilActive" id="ustensilBox">
+   ustensil 
+   <i class="far fa-times-circle">
+   </i> </button>
+</div> `
+
+  container.innerHTML(template)
+}
 
 // Affichage des cartes recettes
 function showRecipes(recipesArray) {

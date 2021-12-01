@@ -22,20 +22,26 @@
   <header class="recherche">
     <img class="logo" src="Union.png" alt="logo">
     <input class="chercher" type="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
-      id="search">
+      id="searchRecipe">
 
   </header>
 
   <section class="filtres">
 
+    <div class="buttonFilter" id="activeFilters">
+      <button class="ingredientActive" id="ingredientBox"> ingrédient <i class="far fa-times-circle"></i></button>
+      <button class="applianceActive" id="applianceBox"> appareil <i class="far fa-times-circle"></i></button>
+      <button class="ustensilActive" id="ustensilBox"> ustensil <i class="far fa-times-circle"></i> </button>
+    </div>
+
     <div class="dropdown">
       <div>
         <button onclick="displayDropdown(event, 'dropdownIngredient')"
-          class="dropbtnIngredient collapsible">Ingredient</button>
+          class="dropbtnIngredient collapsible">Ingredients</button>
         <div id="dropdownIngredient" class="dropdown-content dropdownIngredient">
           <input class="inputIngredient" type="search" placeholder="Recherche un ingrédient" id="ingredientFilter"
-            onkeyup="filterFunction(event, 'ingredientFilter')">
-          <a id="ingredientName" href="#"></a>
+            onkeyup="inputFilter(event, 'ingredientFilter')">
+          <p class="listingName" id="ingredientName"></p>
         </div>
       </div>
 
@@ -44,8 +50,8 @@
           class="dropbtnAppliance collapsible">Appareil</button>
         <div id="dropdownAppliance" class="dropdown-content dropdownAppliance">
           <input class="inputAppliance" type="search" placeholder="Recherche un appareil" id="applianceFilter"
-            onkeyup="filterFunction(event, 'applianceFilter')">
-          <a id="applianceName" href="#"></a>
+            onkeyup="inputFilter(event, 'applianceFilter')">
+          <p class="listingName" id="applianceName"></p>
         </div>
       </div>
 
@@ -54,8 +60,8 @@
           class="dropbtnUstensil collapsible">Ustensils</button>
         <div id="dropdownUstensil" class="dropdown-content dropdownUstensil">
           <input class="inputUstensil" type="search" placeholder="Recherche un ustensil" id="ustensilFitler"
-            onclick="filterFunction(event, 'ustensilFitler')">
-          <a id="ustensilName" href="#"></a>
+            onclick="inputFilter(event, 'ustensilFilter')">
+          <p class="listingName" id="ustensilName"></p>
         </div>
       </div>
 
