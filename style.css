@@ -50,36 +50,51 @@ body {
 }
 
 .ingredientActive {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
   color: #FFFFFF;
   background-color: #3282F7;
   height: 37px;
-  width: 107px;
+  width: auto;
   left: 100px;
   top: 246px;
   border-radius: 5px;
   margin-right: 10px;
+  border: none;
 }
 
 .applianceActive {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
   color: #FFFFFF;
   background-color: #68D9A4;
   height: 37px;
-  width: 107px;
+  width: auto;
   left: 100px;
   top: 246px;
   border-radius: 5px;
   margin-right: 10px;
+  border: none;
 }
 
 .ustensilActive {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
   color: #FFFFFF;
   background-color: #ED6454;
   height: 37px;
-  width: 107px;
+  width: auto;
   left: 100px;
   top: 246px;
   border-radius: 5px;
   margin-right: 10px;
+  border: none;
 }
 
 /* Boutons dropdown */
@@ -174,18 +189,24 @@ button.collapsible:after {
   background-color: #3282F7;
   border-radius: 5px;
   overflow: overlay;
+  width: 100%;
+  padding: 5px;
 }
 
 .dropdownAppliance {
   background-color: #68D9A4;
   border-radius: 5px;
   overflow: overlay;
+  padding: 5px;
+  width: 50%;
 }
 
 .dropdownUstensil {
   background-color: #ED6454;
   border-radius: 5px;
   overflow: overlay;
+  width: 100%;
+  padding: 5px;
 }
 
 .inputIngredient {
@@ -218,7 +239,7 @@ button.collapsible:after {
   left: 53px;
   top: 25px;
   background-color: #ED6454;
-  color: white;
+  color: #FFFFFF;
   width: 100%;
   border: none;
   outline-offset: 0px;
@@ -227,13 +248,14 @@ button.collapsible:after {
 .listingName {
   color: #FFFFFF;
   height: 250px;
-  width: 650px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   overflow: visible;
+  align-content: space-between;
+  list-style: none;
 }
 
 .listingName:hover {
@@ -247,7 +269,6 @@ button.collapsible:after {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
   align-items: center;
   align-content: center;
   width: 100%;

@@ -22,16 +22,13 @@
   <header class="recherche">
     <img class="logo" src="Union.png" alt="logo">
     <input class="chercher" type="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
-      id="searchRecipe">
+      id="searchRecipe" onkeyup="inputSearch(event, 'inputSearch')">
 
   </header>
 
   <section class="filtres">
 
     <div class="buttonFilter" id="activeFilters">
-      <button class="ingredientActive" id="ingredientBox"> ingrédient <i class="far fa-times-circle"></i></button>
-      <button class="applianceActive" id="applianceBox"> appareil <i class="far fa-times-circle"></i></button>
-      <button class="ustensilActive" id="ustensilBox"> ustensil <i class="far fa-times-circle"></i> </button>
     </div>
 
     <div class="dropdown">
@@ -41,17 +38,17 @@
         <div id="dropdownIngredient" class="dropdown-content dropdownIngredient">
           <input class="inputIngredient" type="search" placeholder="Recherche un ingrédient" id="ingredientFilter"
             onkeyup="ingredientFiltered(event, 'ingredientFilter')">
-          <p class="listingName" id="ingredientName"></p>
+          <li class="listingName" id="ingredientName"></li>
         </div>
       </div>
 
       <div>
         <button onclick="displayDropdown(event,'dropdownAppliance')"
-          class="dropbtnAppliance collapsible">Appareil</button>
+          class="dropbtnAppliance collapsible">Appareils</button>
         <div id="dropdownAppliance" class="dropdown-content dropdownAppliance">
           <input class="inputAppliance" type="search" placeholder="Recherche un appareil" id="applianceFilter"
             onkeyup="applianceFiltered(event, 'applianceFilter')">
-          <p class="listingName" id="applianceName"></p>
+          <li class="listingName" id="applianceName"></li>
         </div>
       </div>
 
@@ -61,7 +58,7 @@
         <div id="dropdownUstensil" class="dropdown-content dropdownUstensil">
           <input class="inputUstensil" type="search" placeholder="Recherche un ustensil" id="ustensilFilter"
             onclick="ustensilFiltered(event, 'ustensilFilter')">
-          <p class="listingName" id="ustensilName"></p>
+          <li class="listingName" id="ustensilName"></li>
         </div>
       </div>
 
