@@ -263,6 +263,11 @@ button.collapsible:after {
   text-decoration: none;
 }
 
+.lineThrough
+{
+  text-decoration: line-through;
+}
+
 /* Section des plats */
 
 .plats {

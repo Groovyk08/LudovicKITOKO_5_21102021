@@ -1725,101 +1725,19 @@ const recipes = [
   }
 ]
 
-// Classe pour récupérer les informations du tableau des recettes 
-class Recipe {
-  constructor(name, time, description) {
-    this.name = name
-    this.time = time
-    this.description = description
-    this.ingredients = []
-    this.appliances = []
-    this.ustensils = []
-    this.hasFilters = 0
-  }
+// Initialise le nombre de filtres actifs pendant une recherche
+let totalFiltersClicked = 0
 
-  // Méthode d'ajout d'un ingrédient au tableau ingrédient
-  addIngredient(ingredient) {
-    this.ingredients.push(ingredient)
-  }
+// Tableau des filtres actifs
+const selectedFilter = []
+// Tableau qui regroupe les recherches par input et par tags 
+let filterRecipeArray = []
+let inputRecipeArray = []
 
-  // Ajout d'un plat au tableau appliance
-  addAppliance(appliance) {
-    this.appliances.push(appliance)
-  }
 
-  // Ajout d'un ustensil au tableau ustensil
-  addUstensil(ustensil) {
-    this.ustensils.push(ustensil)
-  }
-
-}
-
-// Classe pour récupérer les informations d'un ingrédient dans le tableau recipes du fichier recipes.js
-class Ingredient {
-  constructor(name, quantity, unit = "") {
-    this.name = name
-    this.quantity = quantity
-    this.unit = unit
-  }
-}
-
-// Classe pour récupérer les informations d'un ustensil dans le tableau recipes du fichier recipes.js
-class Ustensil {
-  constructor(name) {
-    this.name = name
-  }
-}
-
-// Classe pour récupérer les informations d'un plat dans le tableau recipes du fichier recipes.js
-class Appliance {
-  constructor(name) {
-    this.name = name
-  }
-}
-
-// Création d'une recette 
-function createRecipeObject() {
-
-  // Stockage de toutes les recettes dans un tableau 
-  let allRecipesArray = []
-
-  // Fonction qui boucle sur l'ensemble des recettes du fichier recipes.js
-  recipes.forEach(function (oneRecipe) {
-
-    // Instance de la recette 
-    let oneNewRecipeObject = new Recipe(oneRecipe.name, oneRecipe.time, oneRecipe.description)
-
-    // Ajout des ingrédients à la recette 
-    oneRecipe.ingredients.forEach(function (oneIngredient) {
-      let oneIngredientObject = new Ingredient(oneIngredient.ingredient, oneIngredient.quantity, oneIngredient.unit)
-      oneNewRecipeObject.addIngredient(oneIngredientObject)
-    })
-
-    // Ajout des ustensils à la recette
-    oneRecipe.ustensils.forEach(function (oneUstensil) {
-      let oneUstensilObject = new Ustensil(oneUstensil)
-      oneNewRecipeObject.addUstensil(oneUstensilObject)
-
-    })
-
-    // Ajout du plat à la recette 
-    let oneApplianceObject = new Appliance(oneRecipe.appliance)
-    oneNewRecipeObject.addAppliance(oneApplianceObject)
-
-    // Stockage de la recette complète dans la variable allRecipesArray
-    allRecipesArray.push(oneNewRecipeObject)
-
-  })
-
-  return allRecipesArray
-}
-
-// Appelle de la fonction qui créer mes recettes via une variable 
-let recipesObject = createRecipeObject()
 
 // Appelle de la fonction getFilters
-let allFilters = getFitlers(recipesObject)
-console.log(allFilters)
+let allFilters = getFitlers(recipes)
 
 // Affiche le contenu d'un dropdown au clic 
 function displayDropdown(event, dropdown) {
@@ -1841,7 +1759,7 @@ function displayDropdown(event, dropdown) {
 
 // Normaliser la chaîne de caractères
 function normalize(str) {
-  return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  return str ? str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") : ""
 }
 
 // Filtre des noms des ingrédients, plats et ustensils dans des tableaux
@@ -1855,15 +1773,13 @@ function getFitlers(recipes) {
 
     // Filtre les noms doublons 
     recipes.ingredients.forEach(function (ingredients) {
-      allIngredientsFilters.add(normalize(ingredients.name))
+      allIngredientsFilters.add(normalize(ingredients.ingredient))
     })
 
-    recipes.appliances.forEach(function (appliances) {
-      allAppliancesFilters.add(normalize(appliances.name))
-    })
+    allAppliancesFilters.add(normalize(recipes.appliance))
 
     recipes.ustensils.forEach(function (ustensils) {
-      allUstensilsFilters.add(normalize(ustensils.name))
+      allUstensilsFilters.add(normalize(ustensils))
     })
 
   })
@@ -1876,6 +1792,7 @@ function getFitlers(recipes) {
 // afficher les tags dans chaque dropdowns
 function displayFilters(allFilters) {
 
+  console.log("filtre actif :", selectedFilter)
   let ingredientContainer = document.getElementById("ingredientName")
   let applianceContainer = document.getElementById("applianceName")
   let ustensilContainer = document.getElementById("ustensilName")
@@ -1886,13 +1803,20 @@ function displayFilters(allFilters) {
   allFilters[0].sort();
   // Boucle dans le dropdown ingrédient pour afficher un élément du filtre 
   allFilters[0].forEach(function (ingredients) {
+
     const ingredient = document.createElement("li")
     ingredient.innerText = ingredients
     ingredientContainer.appendChild(ingredient)
-    ingredient.addEventListener("click", function () {
-      AddFilter(ingredients, "ingredient")
-    })
 
+    const index = selectedFilter.findIndex(filter => filter.value === ingredient.innerText)
+    if (index === -1) {
+      ingredient.addEventListener("click", function () {
+        AddFilter(ingredients, "ingredient")
+      })
+    }
+    else {
+      ingredient.classList.add("lineThrough")
+    }
   })
 
   allFilters[1].sort();
@@ -1901,9 +1825,16 @@ function displayFilters(allFilters) {
     const appliance = document.createElement("li")
     appliance.innerText = appliances
     applianceContainer.appendChild(appliance)
-    appliance.addEventListener("click", function () {
-      AddFilter(appliances, "appliance")
-    })
+    const index = selectedFilter.findIndex(filter => filter.value === appliance.innerText)
+    if (index === -1) {
+      appliance.addEventListener("click", function () {
+        AddFilter(appliances, "appliance")
+      })
+    }
+    else {
+      appliance.classList.add("lineThrough")
+    }
+
   })
 
   allFilters[2].sort();
@@ -1912,9 +1843,16 @@ function displayFilters(allFilters) {
     const ustensil = document.createElement("li")
     ustensil.innerText = ustensils
     ustensilContainer.appendChild(ustensil)
-    ustensil.addEventListener("click", function () {
-      AddFilter(ustensils, "ustensil")
-    })
+    const index = selectedFilter.findIndex(filter => filter.value === ustensil.innerText)
+    if (index === -1) {
+
+      ustensil.addEventListener("click", function () {
+        AddFilter(ustensils, "ustensil")
+      })
+    }
+    else {
+      ustensil.classList.add("lineThrough")
+    }
   })
 
 }
@@ -1922,25 +1860,21 @@ function displayFilters(allFilters) {
 // Appelle de la fonction
 displayFilters(allFilters)
 
-// Initialise le nombre de filtres actifs pendant une recherche
-let totalFiltersClicked = 0
-
-// Tableau des filtres sélectionnés 
-const selectedFilter = []
-
-// Tableau qui regroupe les recherches par input et par tags 
-let filterRecipeArray = []
-
-let inputRecipeArray = []
 
 // Affiche les filtres actifs et les recettes associées 
 function AddFilter(filteredElement, typeOfElement) {
 
+  // let index = recipes.findIndex((recipes) => recipes.ingredients || recipes.appliance || recipes.ustensils)
+
   totalFiltersClicked += 1
   console.log("nombre de filtre(s) sélectionnée(s) :" + totalFiltersClicked)
+
   selectedFilter.push({
     type: typeOfElement, value: filteredElement
   })
+
+  allFilters[0].splice(filteredElement, 1)
+  console.log(allFilters)
 
   displayFilters(allFilters)
   AddFilterBox(filteredElement, typeOfElement)
@@ -1975,6 +1909,7 @@ function AddFilterBox(event) {
   })
 
 }
+
 
 // Fermer d'un filtre actif
 function closeActiveFilter(event) {
@@ -2031,12 +1966,17 @@ function filterSearch() {
     })
     displayFilters(allFilters)
     showRecipes(filterRecipeArray)
+    const newFilter = getFitlers(filterRecipeArray)
+    displayFilters(newFilter)
   }
   else {
     displayFilters(allFilters)
     showRecipes(array)
+    const newFilter = getFitlers(array)
+    displayFilters(newFilter)
   }
 }
+
 
 
 
@@ -2147,13 +2087,15 @@ function inputSearch(event) {
   const searchBar = document.getElementById("searchRecipe")
   searchBar.addEventListener('keyup', (s) => {
     const searchString = normalize(s.target.value)
-    const array = filterRecipeArray.length > 0 ? filterRecipeArray : recipes
+    const array = filterRecipeArray.length >= 3 ? filterRecipeArray : recipes
     inputRecipeArray = array.filter(recipe => {
 
       return normalize(recipe.name).includes(searchString) || normalize(recipe.description).includes(searchString) || searchIngredient(recipe.ingredients, searchString)
     })
 
     showRecipes(inputRecipeArray)
+    const newFilter = getFitlers(inputRecipeArray)
+    displayFilters(newFilter)
   })
 
 }
