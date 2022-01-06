@@ -188,7 +188,7 @@ button.collapsible:after {
 .dropdownIngredient {
   background-color: #3282F7;
   border-radius: 5px;
-  overflow: overlay;
+  overflow: scroll;
   width: 100%;
   padding: 5px;
 }
@@ -196,7 +196,7 @@ button.collapsible:after {
 .dropdownAppliance {
   background-color: #68D9A4;
   border-radius: 5px;
-  overflow: overlay;
+  overflow: scroll;
   padding: 5px;
   width: 50%;
 }
@@ -204,7 +204,7 @@ button.collapsible:after {
 .dropdownUstensil {
   background-color: #ED6454;
   border-radius: 5px;
-  overflow: overlay;
+  overflow: scroll;
   width: 100%;
   padding: 5px;
 }
@@ -245,9 +245,18 @@ button.collapsible:after {
   outline-offset: 0px;
 }
 
+.chercher::placeholder {
+  color: #000000;
+}
+
+::placeholder {
+  color: #fff;
+}
+
 .listingName {
   color: #FFFFFF;
-  height: 250px;
+  height: 397px;
+  gap: 2% 5%;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -263,8 +272,7 @@ button.collapsible:after {
   text-decoration: none;
 }
 
-.lineThrough
-{
+.lineThrough {
   text-decoration: line-through;
 }
 
