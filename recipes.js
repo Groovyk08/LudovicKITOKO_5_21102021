@@ -2081,23 +2081,22 @@ function showRecipeQuantity(quantity) {
   return quant
 }
 
-// Rechercher une recette via la barre 
+// Rechercher une recette via la barre (Méthode 2)
 function inputSearch(event) {
-
   const searchBar = document.getElementById("searchRecipe")
-  searchBar.addEventListener('keyup', (s) => {
+  searchBar.addEventListener("keyup", (s) => {
     const searchString = normalize(s.target.value)
-    const array = filterRecipeArray.length >= 3 ? filterRecipeArray : recipes
-    inputRecipeArray = array.filter(recipe => {
+  
+    // Boucle For Of 
+    for (let result of recipes) {
+      return normalize(result.name).includes(searchString) || normalize(result.description).includes(searchString) || searchIngredient(result.ingredients, searchString)
+    }
 
-      return normalize(recipe.name).includes(searchString) || normalize(recipe.description).includes(searchString) || searchIngredient(recipe.ingredients, searchString)
-    })
-
-    showRecipes(inputRecipeArray)
-    const newFilter = getFitlers(inputRecipeArray)
-    displayFilters(newFilter)
   })
 
+  showRecipes(inputRecipeArray)
+  const newFilter = getFitlers(inputRecipeArray)
+  displayFilters(newFilter)
 }
 
 function searchIngredient(ingredients, search) {
