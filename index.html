@@ -21,9 +21,13 @@
 <body>
   <header class="recherche">
     <img class="logo" src="Union.png" alt="logo">
-    <input class="chercher" type="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
-      id="searchRecipe" onkeyup="inputSearch(event, 'inputSearch')">
-
+    <div class="inputSearch">
+      <input class="chercher" type="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
+        id="searchRecipe" onkeyup="inputSearch(event, 'inputSearch')">
+      <span class="iconSearch">
+        <i class="fas fa-search"></i>
+      </span>
+    </div>
   </header>
 
   <section class="filtres">
@@ -33,32 +37,53 @@
 
     <div class="dropdown">
       <div>
-        <button onclick="displayDropdown(event, 'dropdownIngredient')"
-          class="dropbtnIngredient collapsible">Ingredients</button>
+        <label onclick="displayDropdown(event, 'dropdownIngredient')" class="dropbtnIngredient" id="btnIngredient">
+          Ingredients
+          <span class="iconCollapsible">
+            <i class="fas fa-chevron-down"></i>
+          </span>
+        </label>
+
         <div id="dropdownIngredient" class="dropdown-content dropdownIngredient">
           <input class="inputIngredient" type="search" placeholder="Recherche un ingrédient" id="ingredientFilter"
             onkeyup="ingredientFiltered(event, 'ingredientFilter')">
-          <li class="listingName" id="ingredientName"></li>
+          <ul>
+            <li class="listingName" id="ingredientName"></li>
+          </ul>
         </div>
+
       </div>
 
       <div>
-        <button onclick="displayDropdown(event,'dropdownAppliance')"
-          class="dropbtnAppliance collapsible">Appareils</button>
+        <label onclick="displayDropdown(event,'dropdownAppliance')" class="dropbtnAppliance" id="btnAppliance">
+          Appareils
+          <span class="iconCollapsible">
+            <i class="fas fa-chevron-down"></i>
+          </span>
+
+
+        </label>
         <div id="dropdownAppliance" class="dropdown-content dropdownAppliance">
           <input class="inputAppliance" type="search" placeholder="Recherche un appareil" id="applianceFilter"
             onkeyup="applianceFiltered(event, 'applianceFilter')">
-          <li class="listingName" id="applianceName"></li>
+          <ul>
+            <li class="listingName" id="applianceName"></li>
+          </ul>
         </div>
       </div>
 
       <div>
-        <button onclick="displayDropdown(event, 'dropdownUstensil')"
-          class="dropbtnUstensil collapsible">Ustensils</button>
+        <label onclick="displayDropdown(event, 'dropdownUstensil')" class="dropbtnUstensil" id="btnUstensil">Ustensils
+          <span class="iconCollapsible">
+            <i class="fas fa-chevron-down"></i>
+          </span>
+        </label>
         <div id="dropdownUstensil" class="dropdown-content dropdownUstensil">
           <input class="inputUstensil" type="search" placeholder="Recherche un ustensil" id="ustensilFilter"
             onclick="ustensilFiltered(event, 'ustensilFilter')">
-          <li class="listingName" id="ustensilName"></li>
+          <ul>
+            <li class="listingName" id="ustensilName"></li>
+          </ul>
         </div>
       </div>
 

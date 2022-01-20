@@ -1741,17 +1741,21 @@ let allFilters = getFitlers(recipes)
 
 // Affiche le contenu d'un dropdown au clic 
 function displayDropdown(event, dropdown) {
+
   document.getElementById(dropdown).classList.toggle("show");
   if (dropdown === "dropdownIngredient") {
+    //document.getElementById("btnIngredient").style.display = "none"
     document.getElementById("dropdownUstensil").classList.remove("show")
     document.getElementById("dropdownAppliance").classList.remove("show")
 
   }
   else if (dropdown === "dropdownUstensil") {
+    //document.getElementById("btnUstensil").style.display = "none"
     document.getElementById("dropdownIngredient").classList.remove("show")
     document.getElementById("dropdownAppliance").classList.remove("show")
   }
   else {
+    //document.getElementById("btnAppliance").style.display = "none"
     document.getElementById("dropdownIngredient").classList.remove("show")
     document.getElementById("dropdownUstensil").classList.remove("show")
   }
@@ -1759,7 +1763,7 @@ function displayDropdown(event, dropdown) {
 
 // Normaliser la chaîne de caractères
 function normalize(str) {
-  return str ? str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") : ""
+  return str ? str.charAt(0).toUpperCase() + str.slice(1) : ""
 }
 
 // Filtre des noms des ingrédients, plats et ustensils dans des tableaux
@@ -1792,7 +1796,7 @@ function getFitlers(recipes) {
 // afficher les tags dans chaque dropdowns
 function displayFilters(allFilters) {
 
-  console.log("filtre actif :", selectedFilter)
+  
   let ingredientContainer = document.getElementById("ingredientName")
   let applianceContainer = document.getElementById("applianceName")
   let ustensilContainer = document.getElementById("ustensilName")
@@ -1867,14 +1871,12 @@ function AddFilter(filteredElement, typeOfElement) {
   // let index = recipes.findIndex((recipes) => recipes.ingredients || recipes.appliance || recipes.ustensils)
 
   totalFiltersClicked += 1
-  console.log("nombre de filtre(s) sélectionnée(s) :" + totalFiltersClicked)
 
   selectedFilter.push({
     type: typeOfElement, value: filteredElement
   })
 
   allFilters[0].splice(filteredElement, 1)
-  console.log(allFilters)
 
   displayFilters(allFilters)
   AddFilterBox(filteredElement, typeOfElement)
@@ -1910,12 +1912,10 @@ function AddFilterBox(event) {
 
 }
 
-
 // Fermer d'un filtre actif
 function closeActiveFilter(event) {
   event.stopPropagation()
   const value = event.target.innerText !== "" ? event.target.innerText : event.target.parentElement.innerText
-  console.log("Filtre désélectionné : " + value)
   const index = selectedFilter.findIndex(filter => filter.value === value)
   if (index !== -1) {
     selectedFilter.splice(index, 1)
@@ -1941,7 +1941,6 @@ function filterSearch() {
           if (ingredients.includes(filter.value)) {
             filterRecipeArray.push(recipe)
 
-            console.log("La recette " + [recipe.name], "contient : " + filter.value)
           }
         }
 
@@ -1949,7 +1948,6 @@ function filterSearch() {
           if (normalize(filter.value) === normalize(recipe.appliance)) {
             filterRecipeArray.push(recipe)
 
-            console.log("La recette " + [recipe.name], "contient : " + filter.value)
           }
         }
 
@@ -1958,7 +1956,6 @@ function filterSearch() {
           if (ustensils.includes(filter.value)) {
             filterRecipeArray.push(recipe)
 
-            console.log("La recette " + [recipe.name], "contient : " + filter.value)
           }
         }
       })
@@ -1976,8 +1973,6 @@ function filterSearch() {
     displayFilters(newFilter)
   }
 }
-
-
 
 
 // Rechercher un tag dans l'input du dropdown ingrédient
@@ -2035,7 +2030,7 @@ function showRecipes(recipesArray) {
   recipesArray.forEach(element => {
     const recipesCard = `<article class="recettes">
 
-    <img class="imgrecettes" src="Union.png" alt="img recette">
+    <img class="imgrecettes">
     <div class="textrecette">
       <h2 class="titrerecette">
         ${element.name}
@@ -2086,14 +2081,23 @@ function inputSearch(event) {
   const searchBar = document.getElementById("searchRecipe")
   searchBar.addEventListener("keyup", (s) => {
     const searchString = normalize(s.target.value)
-  
-    // Boucle For Of 
-    for (let result of recipes) {
-      return normalize(result.name).includes(searchString) || normalize(result.description).includes(searchString) || searchIngredient(result.ingredients, searchString)
+    inputRecipeArray = []
+    // Boucle For..Of
+    for (let search of recipes) {
+      if (normalize(search.name).includes(searchString) || normalize(search.description).includes(searchString) || searchIngredient(search.ingredients, searchString)) {
+        inputRecipeArray.push(search)
+      }
+      else {
+        const container = document.getElementById("recipesContainer")
+        container.innerHTML = ""
+
+        const textError = ""
+        textError.innerText("Aucune recette ne correspond à vos critères de recherche.  Vous pouvez chercher « tarte aux pommes », « poisson », etc.")
+      }
+
     }
-
   })
-
+  console.log(inputRecipeArray)
   showRecipes(inputRecipeArray)
   const newFilter = getFitlers(inputRecipeArray)
   displayFilters(newFilter)
