@@ -2035,7 +2035,7 @@ function showRecipes(recipesArray) {
   recipesArray.forEach(element => {
     const recipesCard = `<article class="recettes">
 
-    <img class="imgrecettes" src="Union.png" alt="img recette">
+    <img class="imgrecettes">
     <div class="textrecette">
       <h2 class="titrerecette">
         ${element.name}
