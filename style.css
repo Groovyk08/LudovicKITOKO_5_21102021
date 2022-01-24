@@ -431,21 +431,3 @@ button.iconCollapsible:after {
   box-sizing: border-box;
   min-width: 0;
 }
-
-
-
-
-/*----------------- RESPONSIVE -------------------- */
-
-
-@media screen and (max-width: 800px) {
-
-  .dropdown {
-    flex-direction: column;
-  }
-
-  .plats {
-    flex-direction: column;
-  }
-
-}
