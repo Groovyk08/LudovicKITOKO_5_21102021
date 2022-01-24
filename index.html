@@ -36,36 +36,38 @@
     </div>
 
     <div class="dropdown">
+
       <div>
-        <label onclick="displayDropdown(event, 'dropdownIngredient')" class="dropbtnIngredient" id="btnIngredient">
-          Ingredients
-          <span class="iconCollapsible">
+        <div class="dropbtnIngredient" id="btnIngredient">
+          <span class="dropdownText">
+            Ingredients
+          </span>
+          <input class="inputIngredient dropdownInput" type="search" placeholder="Recherche un ingrédient"
+            id="ingredientFilter" onkeyup="ingredientFiltered(event, 'ingredientFilter')">
+          <span class="iconCollapsible" onclick="displayDropdown(event, 'dropdownIngredient', 'btnIngredient')">
             <i class="fas fa-chevron-down"></i>
           </span>
-        </label>
-
+        </div>
         <div id="dropdownIngredient" class="dropdown-content dropdownIngredient">
-          <input class="inputIngredient" type="search" placeholder="Recherche un ingrédient" id="ingredientFilter"
-            onkeyup="ingredientFiltered(event, 'ingredientFilter')">
           <ul>
             <li class="listingName" id="ingredientName"></li>
           </ul>
         </div>
-
       </div>
 
       <div>
-        <label onclick="displayDropdown(event,'dropdownAppliance')" class="dropbtnAppliance" id="btnAppliance">
-          Appareils
-          <span class="iconCollapsible">
+        <div class="dropbtnAppliance" id="btnAppliance">
+          <span class="dropdownText">
+            Appareils
+          </span>
+          <input class="inputAppliance dropdownInput" type="search" placeholder="Recherche un appareil"
+            id="applianceFilter" onkeyup="applianceFiltered(event, 'applianceFilter')">
+
+          <span class="iconCollapsible" onclick="displayDropdown(event,'dropdownAppliance', 'btnAppliance')">
             <i class="fas fa-chevron-down"></i>
           </span>
-
-
-        </label>
+        </div>
         <div id="dropdownAppliance" class="dropdown-content dropdownAppliance">
-          <input class="inputAppliance" type="search" placeholder="Recherche un appareil" id="applianceFilter"
-            onkeyup="applianceFiltered(event, 'applianceFilter')">
           <ul>
             <li class="listingName" id="applianceName"></li>
           </ul>
@@ -73,14 +75,17 @@
       </div>
 
       <div>
-        <label onclick="displayDropdown(event, 'dropdownUstensil')" class="dropbtnUstensil" id="btnUstensil">Ustensils
-          <span class="iconCollapsible">
+        <div class="dropbtnUstensil" id="btnUstensil">
+          <span class="dropdownText">
+            Ustensils
+          </span>
+          <input class="inputUstensil dropdownInput" type="search" placeholder="Recherche un ustensil"
+            id="ustensilFilter" onclick="ustensilFiltered(event, 'ustensilFilter')">
+          <span class="iconCollapsible" onclick="displayDropdown(event, 'dropdownUstensil', 'btnUstensil')">
             <i class="fas fa-chevron-down"></i>
           </span>
-        </label>
+        </div>
         <div id="dropdownUstensil" class="dropdown-content dropdownUstensil">
-          <input class="inputUstensil" type="search" placeholder="Recherche un ustensil" id="ustensilFilter"
-            onclick="ustensilFiltered(event, 'ustensilFilter')">
           <ul>
             <li class="listingName" id="ustensilName"></li>
           </ul>
@@ -92,6 +97,9 @@
   </section>
 
   <section class="plats" id="recipesContainer">
+  </section>
+
+  <section class="errorText" id="errorMessage">
   </section>
 
   <!-- Bootsrap JS

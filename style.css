@@ -54,7 +54,13 @@ body {
 }
 
 .filtres {
+  display: flex;
   padding: 15px;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: space-between;
+  justify-content: center;
+  width: 100%;
 }
 
 /* Bouttons des filtres de recherche actifs */
@@ -76,8 +82,7 @@ body {
   background-color: #3282F7;
   height: 37px;
   width: auto;
-  left: 100px;
-  top: 246px;
+
   border-radius: 5px;
   margin-right: 10px;
   border: none;
@@ -92,8 +97,6 @@ body {
   background-color: #68D9A4;
   height: 37px;
   width: auto;
-  left: 100px;
-  top: 246px;
   border-radius: 5px;
   margin-right: 10px;
   border: none;
@@ -108,8 +111,6 @@ body {
   background-color: #ED6454;
   height: 37px;
   width: auto;
-  left: 100px;
-  top: 246px;
   border-radius: 5px;
   margin-right: 10px;
   border: none;
@@ -126,13 +127,14 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  width: 170px;
+  width: auto;
   height: 69px;
   align-items: center;
   justify-content: space-between;
   align-content: center;
   flex-direction: row;
 }
+
 
 .dropbtnAppliance {
   display: flex;
@@ -143,7 +145,7 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  width: 170px;
+  width: auto;
   height: 69px;
   align-items: center;
   justify-content: space-between;
@@ -160,7 +162,7 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  width: 170px;
+  width: auto;
   height: 69px;
   align-items: center;
   justify-content: space-between;
@@ -191,7 +193,7 @@ button.iconCollapsible:after {
   position: relative;
   display: flex;
   flex-direction: row;
-  width: 45%;
+  width: 60%;
   align-content: center;
   justify-content: space-between;
   align-items: center;
@@ -224,11 +226,28 @@ button.iconCollapsible:after {
   display: block;
 }
 
+.dropdownText {
+  display: block;
+}
+
+.dropdownInput {
+  display: none;
+}
+
+.showInput .dropdownText {
+  display: none;
+}
+
+.showInput .dropdownInput {
+  display: block;
+}
+
 .dropdownIngredient {
   background-color: #3282F7;
   border-radius: 5px;
   overflow: scroll;
-  width: 100%;
+  width: 455px;
+  height: 397px;
   padding: 5px;
 }
 
@@ -237,49 +256,47 @@ button.iconCollapsible:after {
   border-radius: 5px;
   overflow: scroll;
   padding: 5px;
-  width: 50%;
+  width: 44%;
 }
 
 .dropdownUstensil {
   background-color: #ED6454;
   border-radius: 5px;
   overflow: scroll;
-  width: 100%;
+  width: 53%;
   padding: 5px;
 }
 
 .inputIngredient {
+  display: none;
   height: 30px;
-  width: 20px;
+  width: 411px;
   left: 53px;
   top: 25px;
   background-color: #3282F7;
   color: #FFFFFF;
-  width: 100%;
   border: none;
   outline-offset: 0px;
 }
 
 .inputAppliance {
   height: 30px;
-  width: 20px;
+  width: 269px;
   left: 53px;
   top: 25px;
   background-color: #68D9A4;
   color: #FFFFFF;
-  width: 100%;
   border: none;
   outline-offset: 0px;
 }
 
 .inputUstensil {
   height: 30px;
-  width: 20px;
+  width: 329px;
   left: 53px;
   top: 25px;
   background-color: #ED6454;
   color: #FFFFFF;
-  width: 100%;
   border: none;
   outline-offset: 0px;
 }
@@ -337,8 +354,6 @@ button.iconCollapsible:after {
   margin: 10px;
   height: 380px;
   width: 380px;
-  left: 0px;
-  top: 0px;
   border-radius: 5px;
 }
 
@@ -349,8 +364,6 @@ button.iconCollapsible:after {
   background-color: #C7BEBE;
   height: inherit;
   width: 380px;
-  left: 0px;
-  top: 0px;
 }
 
 .textrecette {
@@ -392,21 +405,13 @@ button.iconCollapsible:after {
 }
 
 .ingrédients {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   list-style: none;
-  align-items: flex-start;
-  align-content: center;
-  font-style: normal;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 11px;
   line-height: 14px;
   padding: 5px;
   height: 106px;
   width: 50%;
-  left: 20px;
-  top: 243px;
 }
 
 .resume {
@@ -414,14 +419,19 @@ button.iconCollapsible:after {
   text-overflow: ellipsis;
   white-space: normal;
   font-family: 'Roboto';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1;
   height: 110px;
   width: 50%;
-  padding: 5px;
 }
+
+.errorText {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
 
 
 

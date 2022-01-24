@@ -1740,22 +1740,25 @@ let inputRecipeArray = []
 let allFilters = getFitlers(recipes)
 
 // Affiche le contenu d'un dropdown au clic 
-function displayDropdown(event, dropdown) {
-
+function displayDropdown(event, dropdown, btn) {
+  document.getElementById(btn).classList.toggle("showInput")
   document.getElementById(dropdown).classList.toggle("show");
   if (dropdown === "dropdownIngredient") {
-    //document.getElementById("btnIngredient").style.display = "none"
+    document.getElementById("btnUstensil").classList.remove("showInput")
+    document.getElementById("btnAppliance").classList.remove("showInput")
     document.getElementById("dropdownUstensil").classList.remove("show")
     document.getElementById("dropdownAppliance").classList.remove("show")
 
   }
   else if (dropdown === "dropdownUstensil") {
-    //document.getElementById("btnUstensil").style.display = "none"
+    document.getElementById("btnIngredient").classList.remove("showInput")
+    document.getElementById("btnAppliance").classList.remove("showInput")
     document.getElementById("dropdownIngredient").classList.remove("show")
     document.getElementById("dropdownAppliance").classList.remove("show")
   }
   else {
-    //document.getElementById("btnAppliance").style.display = "none"
+    document.getElementById("btnIngredient").classList.remove("showInput")
+    document.getElementById("btnUstensil").classList.remove("showInput")
     document.getElementById("dropdownIngredient").classList.remove("show")
     document.getElementById("dropdownUstensil").classList.remove("show")
   }
@@ -1763,7 +1766,15 @@ function displayDropdown(event, dropdown) {
 
 // Normaliser la chaîne de caractères
 function normalize(str) {
-  return str ? str.charAt(0).toUpperCase() + str.slice(1) : ""
+  return str ? str.charAt(0)
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") +
+    str
+      .substring(1)
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") : ""
 }
 
 // Filtre des noms des ingrédients, plats et ustensils dans des tableaux
@@ -1796,7 +1807,7 @@ function getFitlers(recipes) {
 // afficher les tags dans chaque dropdowns
 function displayFilters(allFilters) {
 
-  
+
   let ingredientContainer = document.getElementById("ingredientName")
   let applianceContainer = document.getElementById("applianceName")
   let ustensilContainer = document.getElementById("ustensilName")
@@ -2067,14 +2078,6 @@ function showRecipeIngredients(ingredients) {
   return res
 }
 
-// Afficher la quantité des ingrédients pour les cartes
-function showRecipeQuantity(quantity) {
-  let quant = ""
-  quantity.forEach(q => {
-    quant += `<li>${q.quantity} ${q.quantity ? ": " + q.quantity : ""}<li>`
-  })
-  return quant
-}
 
 // Rechercher une recette via la barre (Méthode 2)
 function inputSearch(event) {
@@ -2088,16 +2091,13 @@ function inputSearch(event) {
         inputRecipeArray.push(search)
       }
       else {
-        const container = document.getElementById("recipesContainer")
-        container.innerHTML = ""
+        const errorContainer = document.getElementById("errorMessage")
+        errorContainer.innerHTML = "Aucune recette ne correspond à vos critères de recherche.  Vous pouvez chercher « tarte aux pommes », « poisson », etc."
 
-        const textError = ""
-        textError.innerText("Aucune recette ne correspond à vos critères de recherche.  Vous pouvez chercher « tarte aux pommes », « poisson », etc.")
       }
 
     }
   })
-  console.log(inputRecipeArray)
   showRecipes(inputRecipeArray)
   const newFilter = getFitlers(inputRecipeArray)
   displayFilters(newFilter)
@@ -2107,4 +2107,5 @@ function searchIngredient(ingredients, search) {
   const ingredientMap = ingredients.map(i => normalize(i.ingredient))
   return ingredientMap.includes(search)
 }
+
 
