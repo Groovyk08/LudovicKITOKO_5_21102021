@@ -21,9 +21,13 @@
 <body>
   <header class="recherche">
     <img class="logo" src="Union.png" alt="logo">
-    <input class="chercher" type="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
-      id="searchRecipe" onkeyup="inputSearch(event, 'inputSearch')">
-
+    <div class="inputSearch">
+      <input class="chercher" type="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
+        id="searchRecipe" onkeyup="inputSearch(event, 'inputSearch')">
+      <span class="iconSearch">
+        <i class="fas fa-search"></i>
+      </span>
+    </div>
   </header>
 
   <section class="filtres">
@@ -32,33 +36,59 @@
     </div>
 
     <div class="dropdown">
+
       <div>
-        <button onclick="displayDropdown(event, 'dropdownIngredient')"
-          class="dropbtnIngredient collapsible">Ingredients</button>
+        <div class="dropbtnIngredient" id="btnIngredient">
+          <span class="dropdownText">
+            Ingredients
+          </span>
+          <input class="inputIngredient dropdownInput" type="search" placeholder="Recherche un ingrédient"
+            id="ingredientFilter" onkeyup="ingredientFiltered(event, 'ingredientFilter')">
+          <span class="iconCollapsible" onclick="displayDropdown(event, 'dropdownIngredient', 'btnIngredient')">
+            <i class="fas fa-chevron-down"></i>
+          </span>
+        </div>
         <div id="dropdownIngredient" class="dropdown-content dropdownIngredient">
-          <input class="inputIngredient" type="search" placeholder="Recherche un ingrédient" id="ingredientFilter"
-            onkeyup="ingredientFiltered(event, 'ingredientFilter')">
-          <li class="listingName" id="ingredientName"></li>
+          <ul>
+            <li class="listingName" id="ingredientName"></li>
+          </ul>
         </div>
       </div>
 
       <div>
-        <button onclick="displayDropdown(event,'dropdownAppliance')"
-          class="dropbtnAppliance collapsible">Appareils</button>
+        <div class="dropbtnAppliance" id="btnAppliance">
+          <span class="dropdownText">
+            Appareils
+          </span>
+          <input class="inputAppliance dropdownInput" type="search" placeholder="Recherche un appareil"
+            id="applianceFilter" onkeyup="applianceFiltered(event, 'applianceFilter')">
+
+          <span class="iconCollapsible" onclick="displayDropdown(event,'dropdownAppliance', 'btnAppliance')">
+            <i class="fas fa-chevron-down"></i>
+          </span>
+        </div>
         <div id="dropdownAppliance" class="dropdown-content dropdownAppliance">
-          <input class="inputAppliance" type="search" placeholder="Recherche un appareil" id="applianceFilter"
-            onkeyup="applianceFiltered(event, 'applianceFilter')">
-          <li class="listingName" id="applianceName"></li>
+          <ul>
+            <li class="listingName" id="applianceName"></li>
+          </ul>
         </div>
       </div>
 
       <div>
-        <button onclick="displayDropdown(event, 'dropdownUstensil')"
-          class="dropbtnUstensil collapsible">Ustensils</button>
+        <div class="dropbtnUstensil" id="btnUstensil">
+          <span class="dropdownText">
+            Ustensils
+          </span>
+          <input class="inputUstensil dropdownInput" type="search" placeholder="Recherche un ustensil"
+            id="ustensilFilter" onclick="ustensilFiltered(event, 'ustensilFilter')">
+          <span class="iconCollapsible" onclick="displayDropdown(event, 'dropdownUstensil', 'btnUstensil')">
+            <i class="fas fa-chevron-down"></i>
+          </span>
+        </div>
         <div id="dropdownUstensil" class="dropdown-content dropdownUstensil">
-          <input class="inputUstensil" type="search" placeholder="Recherche un ustensil" id="ustensilFilter"
-            onclick="ustensilFiltered(event, 'ustensilFilter')">
-          <li class="listingName" id="ustensilName"></li>
+          <ul>
+            <li class="listingName" id="ustensilName"></li>
+          </ul>
         </div>
       </div>
 
@@ -67,6 +97,9 @@
   </section>
 
   <section class="plats" id="recipesContainer">
+  </section>
+
+  <section class="errorText" id="errorMessage">
   </section>
 
   <!-- Bootsrap JS

@@ -25,7 +25,14 @@ body {
 
 /* Barre de recherche*/
 
+.inputSearch {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 .chercher {
+  position: relative;
   background-color: #E7E7E7;
   width: 1240px;
   height: 69px;
@@ -35,8 +42,25 @@ body {
   outline-offset: 0;
 }
 
+.iconSearch {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  width: 44px;
+  left: 1186px;
+  font-size: 25px;
+}
+
 .filtres {
+  display: flex;
   padding: 15px;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: space-between;
+  justify-content: center;
+  width: 100%;
 }
 
 /* Bouttons des filtres de recherche actifs */
@@ -58,8 +82,7 @@ body {
   background-color: #3282F7;
   height: 37px;
   width: auto;
-  left: 100px;
-  top: 246px;
+
   border-radius: 5px;
   margin-right: 10px;
   border: none;
@@ -74,8 +97,6 @@ body {
   background-color: #68D9A4;
   height: 37px;
   width: auto;
-  left: 100px;
-  top: 246px;
   border-radius: 5px;
   margin-right: 10px;
   border: none;
@@ -90,8 +111,6 @@ body {
   background-color: #ED6454;
   height: 37px;
   width: auto;
-  left: 100px;
-  top: 246px;
   border-radius: 5px;
   margin-right: 10px;
   border: none;
@@ -100,6 +119,7 @@ body {
 /* Boutons dropdown */
 
 .dropbtnIngredient {
+  display: flex;
   background-color: #3282F7;
   color: #FFFFFF;
   padding: 16px;
@@ -107,11 +127,17 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  width: 170px;
+  width: auto;
   height: 69px;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+  flex-direction: row;
 }
 
+
 .dropbtnAppliance {
+  display: flex;
   background-color: #68D9A4;
   color: #FFFFFF;
   padding: 16px;
@@ -119,11 +145,16 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  width: 170px;
+  width: auto;
   height: 69px;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+  flex-direction: row;
 }
 
 .dropbtnUstensil {
+  display: flex;
   background-color: #ED6454;
   color: #FFFFFF;
   padding: 16px;
@@ -131,15 +162,25 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  width: 170px;
+  width: auto;
   height: 69px;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+  flex-direction: row;
 }
 
-.collapsible {
+.iconCollapsible {
   cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(0);
 }
 
-button.collapsible:after {
+.iconCollapsible:hover {
+  transform: rotate(180deg);
+}
+
+button.iconCollapsible:after {
   content: '\002B';
   color: #FFFFFF;
   font-weight: bold;
@@ -152,7 +193,7 @@ button.collapsible:after {
   position: relative;
   display: flex;
   flex-direction: row;
-  width: 45%;
+  width: 60%;
   align-content: center;
   justify-content: space-between;
   align-items: center;
@@ -185,11 +226,28 @@ button.collapsible:after {
   display: block;
 }
 
+.dropdownText {
+  display: block;
+}
+
+.dropdownInput {
+  display: none;
+}
+
+.showInput .dropdownText {
+  display: none;
+}
+
+.showInput .dropdownInput {
+  display: block;
+}
+
 .dropdownIngredient {
   background-color: #3282F7;
   border-radius: 5px;
   overflow: scroll;
-  width: 100%;
+  width: 455px;
+  height: 397px;
   padding: 5px;
 }
 
@@ -198,49 +256,47 @@ button.collapsible:after {
   border-radius: 5px;
   overflow: scroll;
   padding: 5px;
-  width: 50%;
+  width: 44%;
 }
 
 .dropdownUstensil {
   background-color: #ED6454;
   border-radius: 5px;
   overflow: scroll;
-  width: 100%;
+  width: 53%;
   padding: 5px;
 }
 
 .inputIngredient {
+  display: none;
   height: 30px;
-  width: 20px;
+  width: 411px;
   left: 53px;
   top: 25px;
   background-color: #3282F7;
   color: #FFFFFF;
-  width: 100%;
   border: none;
   outline-offset: 0px;
 }
 
 .inputAppliance {
   height: 30px;
-  width: 20px;
+  width: 269px;
   left: 53px;
   top: 25px;
   background-color: #68D9A4;
   color: #FFFFFF;
-  width: 100%;
   border: none;
   outline-offset: 0px;
 }
 
 .inputUstensil {
   height: 30px;
-  width: 20px;
+  width: 329px;
   left: 53px;
   top: 25px;
   background-color: #ED6454;
   color: #FFFFFF;
-  width: 100%;
   border: none;
   outline-offset: 0px;
 }
@@ -298,8 +354,6 @@ button.collapsible:after {
   margin: 10px;
   height: 380px;
   width: 380px;
-  left: 0px;
-  top: 0px;
   border-radius: 5px;
 }
 
@@ -310,8 +364,6 @@ button.collapsible:after {
   background-color: #C7BEBE;
   height: inherit;
   width: 380px;
-  left: 0px;
-  top: 0px;
 }
 
 .textrecette {
@@ -335,6 +387,7 @@ button.collapsible:after {
   align-content: center;
   padding: 5px;
   width: 70%;
+  padding: 5px;
 }
 
 .time {
@@ -348,41 +401,37 @@ button.collapsible:after {
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
+  padding: 2px;
 }
 
 .ingrédients {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   list-style: none;
-  align-items: flex-start;
-  align-content: center;
-  font-style: normal;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 11px;
   line-height: 14px;
   padding: 5px;
   height: 106px;
-  width: 171px;
-  left: 20px;
-  top: 243px;
+  width: 50%;
 }
 
 .resume {
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: pre-line;
+  white-space: normal;
   font-family: 'Roboto';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 12px;
+  font-size: 11px;
+  line-height: 1;
   height: 110px;
-  width: 171px;
-  left: 191px;
-  top: 243px;
-  padding: 5px;
+  width: 50%;
 }
+
+.errorText {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
 
 
 
