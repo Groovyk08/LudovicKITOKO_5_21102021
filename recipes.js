@@ -1740,18 +1740,25 @@ let inputRecipeArray = []
 let allFilters = getFitlers(recipes)
 
 // Affiche le contenu d'un dropdown au clic 
-function displayDropdown(event, dropdown) {
+function displayDropdown(event, dropdown, btn) {
+  document.getElementById(btn).classList.toggle("showInput")
   document.getElementById(dropdown).classList.toggle("show");
   if (dropdown === "dropdownIngredient") {
+    document.getElementById("btnUstensil").classList.remove("showInput")
+    document.getElementById("btnAppliance").classList.remove("showInput")
     document.getElementById("dropdownUstensil").classList.remove("show")
     document.getElementById("dropdownAppliance").classList.remove("show")
 
   }
   else if (dropdown === "dropdownUstensil") {
+    document.getElementById("btnIngredient").classList.remove("showInput")
+    document.getElementById("btnAppliance").classList.remove("showInput")
     document.getElementById("dropdownIngredient").classList.remove("show")
     document.getElementById("dropdownAppliance").classList.remove("show")
   }
   else {
+    document.getElementById("btnIngredient").classList.remove("showInput")
+    document.getElementById("btnUstensil").classList.remove("showInput")
     document.getElementById("dropdownIngredient").classList.remove("show")
     document.getElementById("dropdownUstensil").classList.remove("show")
   }
@@ -1759,7 +1766,15 @@ function displayDropdown(event, dropdown) {
 
 // Normaliser la chaîne de caractères
 function normalize(str) {
-  return str ? str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") : ""
+  return str ? str.charAt(0)
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") +
+    str
+      .substring(1)
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") : ""
 }
 
 // Filtre des noms des ingrédients, plats et ustensils dans des tableaux
